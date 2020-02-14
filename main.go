@@ -17,6 +17,7 @@ func main() {
 
 	inFilename := flag.String("in", "", "input filename")
 	outFilename := flag.String("out", "", "output filename")
+	withTyping := flag.Bool("typing", false, "generate typing")
 
 	flag.Parse()
 
@@ -28,6 +29,7 @@ func main() {
 	}
 
 	if *inFilename == "" {
+		flag.PrintDefaults()
 		panic(fmt.Errorf("Missing go input file"))
 	}
 
@@ -36,7 +38,7 @@ func main() {
 		panic(err)
 	}
 
-	err = process(string(data), out)
+	err = process(string(data), out, *withTyping)
 	if err != nil {
 		panic(err)
 	}
